@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useMemo, useState } from 'react';
+import { useRouter } from 'next/router';
 
 import {
   SignInResponse,
@@ -12,13 +13,15 @@ import {
   base_api,
   storage_key
 } from '../services/app_api';
-
+import { useBoolean } from '../hooks/useBoolean';
 
 export type AuthContextData = {
   signIn: (credentials: SignInData) => Promise<SignInResponse | undefined>;
   signOut: () => Promise<void>;
   user: User | null;
   token: string | null;
+  tokenIsValid: boolean;
+  page_loading: boolean;
 }
 
 export const AuthContext = createContext({} as AuthContextData);
@@ -30,11 +33,32 @@ export type AuthProviderProps = {
 export function AuthProvider({
   children
 }: AuthProviderProps) {
+  const next_router = useRouter();
+
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
+  const tokenIsValid = useBoolean();
+  const page_loading = useBoolean(true);
 
-  useEffect(() => {
-    setToken(localStorage.getItem(storage_key));
+  useMemo(() => {
+    if (typeof window === "undefined") return;
+
+    const getToken = localStorage.getItem(storage_key);
+    setToken(getToken);
+  
+    base_api.defaults.headers.common['Authorization'] = `${getToken}`;
+  
+    base_api.interceptors.response.use(
+      (response) => {
+        // tokenIsValid.changeToTrue();
+        return response;
+      },
+      (error) => {
+        if (error.response.status === 401) {
+          signOut();
+        }
+      }
+    );
   }, []);
 
   async function signIn(credentials: SignInData): Promise<SignInResponse | undefined> {
@@ -43,7 +67,6 @@ export function AuthProvider({
 
       const token = response.headers.authorization;
 
-      base_api.defaults.headers.common['authorization'] = `${token}`;
       setToken(token);
       setUser(response.data);
       localStorage.setItem(storage_key, token);
@@ -59,6 +82,13 @@ export function AuthProvider({
           fontFamily: 'Roboto, sans-serif',
         }
       });
+
+      tokenIsValid.changeToTrue();
+      page_loading.changeToFalse();
+
+      base_api.defaults.headers.common['Authorization'] = `${token}`;
+
+      next_router.push('/products');
 
       return response.data || undefined;
     } catch(error: any) {
@@ -83,9 +113,14 @@ export function AuthProvider({
   async function signOut(): Promise<void> {
     setToken(null);
     setUser(null);
+    tokenIsValid.changeToFalse();
 
     localStorage.removeItem(storage_key);
     base_api.defaults.headers.common['authorization'] = '';
+
+    page_loading.changeToFalse();
+
+    next_router.push('/');
   }
 
   return (
@@ -94,7 +129,9 @@ export function AuthProvider({
         signIn,
         signOut,
         user,
-        token
+        token,
+        tokenIsValid: tokenIsValid.state,
+        page_loading: page_loading.state
       }}
     >
       {children}
