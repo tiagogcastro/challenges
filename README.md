@@ -29,9 +29,19 @@
   <div class="desafio">
     <p>
       <a 
-        href="https://github.com/Tiaguin061/challenges/tree/master/create-shoppingcart-hook"
+        href="https://github.com/Tiaguin061/challenges/tree/create-shoppingcart-hook"
       > Hook de carrinho de compras </a> </br>
-      Tecnologia usada: ReactJs, Styled Components e Jest 
+      Tecnologia usada: ReactJs, Typescript, Styled Components e Jest 
+    </p>
+
+  ___
+  </div>
+  <div class="desafio">
+    <p>
+      <a 
+        href="https://github.com/Tiaguin061/challenges/tree/irecipe"
+      > Irecipe </a> </br>
+      Tecnologia usada: NextJs, Scss, Typescript 
     </p>
 
   ___
