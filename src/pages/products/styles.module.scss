@@ -1,0 +1,141 @@
+.products_page_container {
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: center;
+}
+
+.products_page_content {
+  margin: 48px 32px 0;
+  padding: 24px;
+
+  max-width: 880px;
+  width: 100%;
+
+  background: #F2F2F2;
+
+  border-radius: 12px;
+
+  .products_page_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .left_header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+    }
+
+    .new_product {
+      background: #FF7A00;
+      color: #F2F2F2;
+      padding: 8px 16px;
+
+      letter-spacing: 0.7px;
+      border-radius: 8px;
+
+      transition: all 0.2s;
+
+      &:hover {
+        filter: brightness(110%);
+      }
+    }
+  }
+}
+
+.products_container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+
+  margin-top: 48px;
+  
+  .product_item {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+
+    border-radius: 8px;
+    border: 1px solid #ccc;
+
+    padding: 12px;
+
+    .remove_product {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+
+      background: rgb(236, 64, 64);
+      color: #fff;
+
+      border-radius: 0 0 0 16px;
+
+      width: 32px;
+      height: 32px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      transition: all 0.2s;
+
+      &:hover {
+        filter: brightness(90%);
+        zoom: 1.2;
+      }
+    }
+
+    img {
+      max-width: 240px;
+      max-height: 240px;
+      object-fit: cover;
+
+      border-radius: 8px;
+    }
+
+    .product_item_title {
+      font-size: 22px;
+      letter-spacing: 0.7px;
+
+      margin: 8px 0 4px;
+    }
+
+    .product_item_ingredients {
+      background: none;
+      border-bottom: 1px solid #101010;
+
+      display: flex;
+      align-items: flex-start;
+      width: max-content;
+
+      margin-bottom: 16px;
+    }
+
+    .product_item_footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .product_item_price {
+        color: #F2F2F2;
+        background: #FF7A00;
+
+        border-radius: 8px;
+        
+        padding: 8px;
+      }
+      
+      .edit_product {
+        padding: 8px;
+      }
+    }
+  }
+}

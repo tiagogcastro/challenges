@@ -1,0 +1,95 @@
+.save_product_modal_container {
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: center;
+
+  .save_product_modal_content {
+    margin: 48px 32px 0;
+    padding: 24px;
+
+    max-width: 480px;
+    width: 100%;
+
+    background: #F2F2F2;
+
+    border-radius: 12px;
+
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  form {
+    margin: 0 auto;
+
+    .form_header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+
+      .form_title {
+        color: #FF7A00;
+
+        font-size: 32px;
+
+        font-weight: 500;
+        line-height: 38px;
+        letter-spacing: 0em;
+        text-align: left;
+
+        margin-bottom: 32px;
+      }
+
+      button {
+        width: 32px;
+        height: 32px;
+
+        border: 1px solid #ccc;
+        border-radius: 50%;
+      }
+    }
+
+    // ingredients
+    .form_field_ingredients {
+      margin: 16px 0;
+      position: relative;
+
+      .index_count {
+        background: rgb(131, 131, 131);
+        position: absolute;
+        top: -14px;
+        left: 0;
+
+        color: #101010;
+
+        padding: 8px;
+      }
+
+      .remove_ingredients{
+        background: rgb(231, 90, 90);
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        color: #fff;
+
+        padding: 8px;
+      }
+
+      .form_field_ingredient_title {
+        color: #FF7A00;
+      }
+
+      .ingredients_fields {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+
+        padding-top: 8px;
+
+        border-top: 1px solid #ccc;
+      }
+    }
+  }
+}
